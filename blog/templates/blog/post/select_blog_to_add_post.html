@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+New post
+{% endblock title %}
+
+{% block content %}
+    
+    {% if not blog_list %}
+        <div class="container-flex bg-light info_container">
+            <h1 class="text-info">You have not blog to add post.</h1>
+        </div>
+        <div class="container-flex">
+            <a class="btn btn-lg btn-block btn-info" role="button" href="{% url 'blog_new' %}">Create blog</a>
+        </div>
+    {% else %}
+
+        <div class="container-flex bg-light info_container">
+            <h1 class="text-info">Select blog to add post:</h1>
+        </div>
+        {% for blog in blog_list %}
+            <div class="container-flex bg-light blog_list_container">
+                <div class="blog_list_header">
+                    <h1 class="text-center"><a class="text-dark" href="{% url 'post_new' blog.id %}">{{ blog.name }}</a></h1>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock content %}

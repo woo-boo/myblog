@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+Edit post
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container-flex bg-light blog_list_container">
+        <div class="blog_list_header">
+            <h1 class="text-center text-dark">{{ post.blog.name }}</h1>
+            <hr>
+            <div class="blog_list_header_info">
+                <span class="text-dark">Posts: {{ post.blog.posts.count }}</span>
+                <span class="text-dark">Author: <a href="{{ blog.user.get_absolute_url }}">{{ post.blog.user.username }}</a></span>
+            </div>
+        </div>
+    </div>    
+    <div class="container-flex bg-light new_post_form_container">
+        <div class="new_post_form">
+            <form action="{% url 'post_edit' post.id %}" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    <div class="form_label">{{ field.label_tag }}</div>
+                    <div class="form_input">{{ field }}</div>
+                    <div class="form_errors">{{ field.errors }}</div>
+                </div>
+                {% endfor %}
+                <input type="submit" value="Save post">
+            </form>            
+        </div>
+    </div>
+{% endblock content %}

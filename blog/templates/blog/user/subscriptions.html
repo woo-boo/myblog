@@ -1,0 +1,18 @@
+{% extends "blog/blog/blog_list.html" %}
+{% load static %}
+
+{% block title %}
+Subscriptions
+{% endblock title %}
+
+{% if not blog_list %}
+  
+    {% block content %}
+        
+        <div class="container-flex bg-light info_container">
+            <h1 class="text-info">You have not any subscriptions</h1>
+        </div>
+
+    {% endblock content %}
+
+{% endif %}

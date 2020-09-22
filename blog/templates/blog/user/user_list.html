@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+Users
+{% endblock title %}
+
+{% block content %}
+
+ 
+    {% for user in user_list %}
+        <div class="container-flex" style="margin-bottom: 5em;">   
+            {% include "blog/snippets/user.html" %}
+        </div>
+   {% endfor %}
+
+
+{% endblock content %}

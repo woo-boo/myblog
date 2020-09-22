@@ -1,0 +1,38 @@
+<div class="post_container">
+    <div class="post_left">
+    </div>
+    <div class="post_main bg-light">
+        <header class="post_header">
+            <h2 class="post_title">
+                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+            </h2>
+            <i>{{ post.pub_date }}</i>
+            {% block post_buttons %}
+            {% endblock post_buttons %}
+        </header>
+        <hr>
+        <div class="post_content">
+            <div class="post_text">
+                <p>{{ post.text|linebreaks }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="post_footer container-fluid">
+            <div class="row">
+                <div class="">
+                    <span class="post_footer_link">
+                        Likes: {{ post.like_count }}
+                    </span><span class="post_footer_link">
+                        <a href="{% url 'post_detail' post.id %}#comments">Comments: </a>{{ post.comments.count }}
+                    </span>
+                    <span class="post_footer_link">
+                        Author: <a href="{% url 'user_detail' post.user.id %}">{{ post.user.username }}</a>
+                    </span>
+                    <span class="post_footer_link">
+                        Blog: <a href="{{ post.blog.get_absolute_url }}">{{ post.blog.name }}</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

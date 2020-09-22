@@ -1,0 +1,39 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+Delete post  
+{% endblock title %}
+
+{% block content %}
+    <div class="container-flex bg-light info_container">
+        <h1 class="text-danger">Are you really want to delete this blog? </h1>
+    </div>
+    <div class="container-flex bg-light blog_list_container">
+        <div class="blog_list_header">
+            <h1 class="text-center"><a class="text-dark" href="{{ blog.get_absolute_url }}">{{ blog.name }}</a></h1>
+            <hr>
+            <div class="blog_list_header_info">
+                <span class="text-dark">Posts: {{ blog.posts.count }}</span>
+                <span class="text-dark">Author: <a href="{{ blog.user.get_absolute_url }}">{{ blog.user.username }}</a></span>
+            </div>
+            <hr>
+        </div>
+        <div class="blog_list_content">
+            {% if not blog.posts.all %}
+                <h2 class="text-dark">Empty blog!</h2>
+            {% endif %}
+
+            {% for post in blog.posts.all %}
+                <div class="text-left">
+                    <a class="text-dark" href="{{ post.get_absolute_url }}"><h2>{{ post.title }}</h2></a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <form action="{% url 'blog_delete' blog.id %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="btn btn-lg btn-block btn-danger" value="Delete">
+        <a role="button" class="btn btn-lg btn-block btn-info text-center" href="{{ blog.get_absolute_url }}">Back</a>
+    </form>
+{% endblock content %}

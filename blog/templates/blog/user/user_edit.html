@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+Edit profile
+{% endblock title %}
+
+{% block content %}
+    <div class="container-flex bg-light info_container">
+        <h1>Edit user profile: {{ user.username }}</h1>
+    </div>
+    <div class="container-flex">
+        <form>
+            {% csrf_token %}
+        </form>
+    </div>
+{% endblock content %}

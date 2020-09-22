@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+New Blog
+{% endblock title %}
+
+{% block content %}
+    
+    <div class="container-flex bg-light info_container">
+        <h1 class="text-info">New blog:</h1>
+    </div>
+    <div class="container-flex bg-light new_blog_form_container">
+        <div class="new_blog_form">
+            <form action="{% url 'blog_new' %}" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <div class="form_label"> {{ field.label_tag }}</div>
+                        <div class="form_input"> {{ field }}</div>
+                        <div class="form_errors">{{ field.errors }}</div>
+                    </div>
+                {% endfor %}
+                <input class="btn btn-info" type="submit" value="Save">
+            </form>            
+        </div>
+    </div>
+
+{% endblock content %}

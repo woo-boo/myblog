@@ -1,0 +1,13 @@
+{% extends "blog/messages/base_message.html" %}
+
+{% block title %}
+Success!
+{% endblock title %}
+
+{% block message %}
+ Blog was successfully deleted
+{% endblock message %}
+
+{% block link %}
+<a href="{% url 'my_blogs' %}">Back to my blogs</a>
+{% endblock link %}

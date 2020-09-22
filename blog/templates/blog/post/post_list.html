@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+
+    {% for post in post_list %}
+
+        {% include "blog/snippets/post.html" %}
+
+    {% endfor %}
+
+{% endblock content %}

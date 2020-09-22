@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container-flex bg-light home_title">
+        <h1 class="text-primary">{{ time }}</h1>
+    </div>
+
+    {% if not post_list %}
+        <div class="container-flex bg-light info_container">
+            <h1 class="text-info">There are not posts for last 24 hours</h1>
+        </div>
+    {% else %}
+
+        <div class="container-flex bg-light home_title">
+            <h1 class="text-primary">Popular posts per day: </h1>
+        </div>
+
+        {% for post in post_list %}
+            
+            {% include "blog/snippets/post.html" %}
+
+        {% endfor %}
+
+    {% endif %}
+
+    <div class="container-flex bg-light home_title">
+        <h1 class="text-primary">New blogs: </h1>
+    </div>
+
+    {% for blog in blog_list %}
+        
+        {% include "blog/snippets/blog.html" %}
+
+    {% endfor %}
+    
+{% endblock content %}

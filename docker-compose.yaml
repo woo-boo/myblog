@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  database:
+    image: postgres
+    environment:
+      POSTGRES_USER: #insert username
+      POSTGRES_PASSWORD: #insert password
+      POSTGRES_DATABASE: #insert database name
+    ports: 
+      - "5432:5432"
+    restart: always

@@ -1,0 +1,22 @@
+{% extends "blog/user/user_detail.html" %}
+
+{% block title %}
+    My account
+{% endblock title %}
+
+{% block buttons_header %}
+
+    <div class="container-flex" style="padding-bottom: 5em;">
+        <a role="button" class="btn btn-block btn-info">Edit profile</a>
+        <a role="button" class="btn btn-block btn-danger">Delete profile</a>
+    </div>
+
+{% endblock buttons_header %}
+
+{% block buttons_blog %}
+
+    <div class="container-flex" style="padding-top: 1em;">
+        <a role="button" class="btn btn-block btn-info" href="{% url 'blog_new' %}">Add blog</a>
+    </div>
+
+{% endblock buttons_blog %}

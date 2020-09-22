@@ -1,0 +1,52 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+    User
+{% endblock title %}
+
+{% block content %}
+    <div class="container-flex bg-light" style="padding: 1em;">
+        <h2>Username: <i>{{ user.username }}</i></h2>
+        <hr>
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <span>Date joined: {{ user.date_joined.date }}</span>
+    </div>
+
+    {% block buttons_header %}
+    {% endblock buttons_header %}
+
+    {% if blog_list %}
+        <div class="container-flex bg-light text-info info_container">
+            <h1>Blogs: </h1>
+        </div>
+    {% endif %}
+
+    {% block buttons_blog %}
+    {% endblock buttons_blog %}
+
+    {% for blog in blog_list %}
+        <div class="container-flex bg-light blog_list_container">
+            <div class="blog_list_header">
+                <h1 class="text-center"><a class="text-dark" href="{{ blog.get_absolute_url }}">{{ blog.name }}</a></h1>
+                <hr>
+                <div class="blog_list_header_info">
+                    <span class="text-dark">Posts: {{ blog.posts.count }}</span>
+                    <span class="text-dark">Author: <a href="{{ blog.user.get_absolute_url }}">{{ blog.user.username }}</a></span>
+                </div>
+                <hr>
+            </div>
+            <div class="blog_list_content">
+                {% if not blog.posts.all %}
+                    <h2 class="text-dark">Empty blog!</h2>
+                {% endif %}
+
+                {% for post in blog.posts.all %}
+                    <div class="text-left">
+                        <a class="text-dark" href="{{ post.get_absolute_url }}"><h2>{{ post.title }}</h2></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

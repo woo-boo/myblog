@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block content %}
+    <div class="login_form_container bg-light">
+        <div class="login_form_header text-left">
+            <div class="info_container">
+                <h1 class="text-primary">Log in:</h1>
+            </div>
+        </div>
+        <div class="login_form">
+            <form action="{% url 'log_in' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                <label for="InputLogin">Your username</label>
+                <input type="text" class="form-control" name="username" aria-describedby="loginHelp" placeholder="Enter login" value="" required>
+                <small id="loginHelp" class="form-text text-warning">{{ form.errors.main }}</small>
+                </div>
+                <div class="form-group">
+                <label for="InputPassword">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password" value="" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Log in</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

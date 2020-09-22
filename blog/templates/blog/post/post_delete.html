@@ -1,0 +1,57 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+Delete post  
+{% endblock title %}
+
+{% block content %}
+    <div class="container-flex bg-light info_container">
+        <h1 class="text-danger">Are you really want to delete this post? </h1>
+    </div>
+    <div class="post_container">
+        <div class="post_left">
+        </div>
+        <div class="post_main bg-light">
+            <header class="post_header d-inline-block">
+                <div class="post_header_inline">
+                    <h2 class="post_title">
+                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                    </h2>
+                </div>
+            </header>
+            <hr>
+            <div class="post_content">
+                <div class="post_text">
+                    <p>{{ post.text|linebreaks }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="post_footer container-fluid">
+                <div class="row">
+                    <div class="col-sm">
+                        <span class="post_footer_link">
+                            Likes: {{ post.like_count }}
+                        </span>
+                        <span class="post_footer_link">
+                            Author: <a href="{% url 'user_detail' post.user.id %}">{{ post.user.username }}</a>
+                        </span>
+                        <span class="post_footer_link">
+                            Blog: <a href="{{ post.blog.get_absolute_url }}">{{ post.blog.name }}</a>
+                        </span>
+                    </div>
+                    <div class="col-sm post_footer_link text-right">
+                        <a href="{{ post.get_absolute_url }}">Comments</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid delete_post_form_container">
+        <form action="{% url 'post_delete' post.id %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn-lg btn-block btn-danger" value="Delete">
+            <a role="button" class="btn-lg btn-block btn-info text-center" href="..">Back</a>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,95 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ post.title }}
+{% endblock title %}
+
+{% block content %}
+    <div class="post_container">
+        <div class="post_left">
+        </div>
+        <div class="post_main bg-light">
+            <header class="post_header d-inline-block">
+                <div class="post_header_inline">
+                    <h2 class="post_title">
+                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                    </h2>
+                    <i>{{ post.pub_date }}</i>
+                </div>
+                {% if user == post.user %}
+                    <div class="post_header_inline d-inline">
+                        <a class="btn btn-primary" href="{% url 'post_edit' post.id %}" role="button">Edit</a>
+                    </div>
+                    <div class="post_header_inline d-inline">
+                        <a class="btn btn-danger" href="{% url 'post_delete' post.id %}" role="button">Delete</a>
+                    </div>
+                {% endif %}
+            </header>
+            <hr>
+            <div class="post_content">
+                <div class="post_text">
+                    <p>{{ post.text|linebreaks }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="post_footer container-fluid">
+                <div class="row">
+                    <div class="">
+                        <span class="post_footer_link">
+                            Likes: {{ post.like_count }}
+                        </span><span class="post_footer_link">
+                            <a href="#comments">Comments: </a>{{ post.comments.count }}
+                        </span>
+                        <span class="post_footer_link">
+                            Author: <a href="{% url 'user_detail' post.user.id %}">{{ post.user.username }}</a>
+                        </span>
+                        <span class="post_footer_link">
+                            Blog: <a href="{{ post.blog.get_absolute_url }}">{{ post.blog.name }}</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if comment_list %}
+        <div id="comments" class="flex-container bg-light info_container" style="margin-top: 3em;">
+            <h1 class="text-primary">Comments: </h1>
+        </div>
+    {% endif %}
+
+    {% if user.username %}
+        <div class="flex-container bg-light form_container">
+            <form action="{% url 'post_detail' post.id %}" method="POST">
+                {% csrf_token %}
+                {{ form_add_comment.text }}
+                {{ form_add_comment.text.errors }}
+                <input type="submit" class="btn btn-block btn-primary" value="Add comment">
+            </form>
+        </div>
+    {% endif %}
+
+    {% for comment in comment_list %}
+        <div class="flex-container bg-light comment_container" id="comment_{{ comment.id }}">
+            <div class="comment_header">
+                <span>Author: <a href="{% url 'user_detail' comment.user.id %}">{{ comment.user.username }}</a></span>
+                <span><i>{{ comment.pub_date }}</i></span>
+            </div>
+            <hr>
+            <div class="comment_content">
+                <p>{{ comment.text|linebreaks }}</p>
+            </div>
+            {% if comment.user == user %}
+                <form action="{% url 'post_detail' post.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                    {{ form_delete_comment }}
+                    {{ form_delete_error }}
+                    <input type="submit" class="btn btn-danger" value="Delete comment">
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+{% endblock content %}
