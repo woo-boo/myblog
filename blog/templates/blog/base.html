@@ -43,9 +43,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link " data-value="blogs"href="{% url 'user_list' %}">Users</a>    
                                 </li>
-                                {% if not user.username %}
+                                {% if not user.is_authenticated %}
                                     <li class="nav-item">
                                         <a class="nav-link " data-value="Login" href="{% url 'log_in' %}">Log in</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " data-value="Sign up" href="{% url 'sign_up' %}">Sign up</a>
                                     </li>
                                 {% else %}
                                     <li class="nav-item">
@@ -55,7 +58,7 @@
                                         <a class="nav-link " data-value="friends" href="{% url 'subscriptions' %}">Subscriptions</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link " data-value="my_account" href="{% url 'my_account' %}" >My account</a>
+                                        <a class="nav-link " data-value="my_account" href="{% url 'my_account' %}" >{{ user.first_name }} {{ user.last_name }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link " data-value="Login" href="{% url 'log_out' %}">Log out</a>
@@ -81,6 +84,14 @@
                                 {% block sidebar %}
                                     <div id="sidebar" class="container-fluid">
                                         <nav class="nav flex-column bg-light">
+                                            {% if user.is_authenticated %}
+                                                <li class="nav-item">
+                                                    <a class="nav-link text-dark" href="{% url 'my_blogs' %}">My blogs</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link text-dark" href="{% url 'my_posts' %}">My posts</a>
+                                                </li>
+                                            {% endif %}
                                             <li class="nav-item">
                                                 <a class="nav-link text-dark" href="#">Scroll up</a>
                                             </li>

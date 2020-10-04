@@ -6,30 +6,13 @@ Blogs
 {% endblock title %}
 
 {% block content %}
-
-    {% for blog in blog_list %}
-        <div class="container-flex bg-light blog_list_container">
-            <div class="blog_list_header">
-                <h1 class="text-center"><a class="text-dark" href="{{ blog.get_absolute_url }}">{{ blog.name }}</a></h1>
-                <hr>
-                <div class="blog_list_header_info">
-                    <span class="text-dark">Posts: {{ blog.posts.count }}</span>
-                    <span class="text-dark">Author: <a href="{{ blog.user.get_absolute_url }}">{{ blog.user.username }}</a></span>
-                </div>
-                <hr>
-            </div>
-            <div class="blog_list_content">
-                {% if not blog.posts.all %}
-                    <h2 class="text-dark">Empty blog!</h2>
-                {% endif %}
-
-                {% for post in blog.posts.all %}
-                    <div class="text-left">
-                        <a class="text-dark" href="{{ post.get_absolute_url }}"><h2>{{ post.title }}</h2></a>
-                    </div>
-                {% endfor %}
-            </div>
+    {% if not blog_list %}
+        <div class="container-flex bg-light info_container">
+            <h1 class="text-info">There are no blogs</h1>
         </div>
-    {% endfor %}
-
+    {% else %}
+        {% for blog in blog_list %}
+            {% include "blog/snippets/blog.html" %}
+        {% endfor %}
+    {% endif %}
 {% endblock content %}

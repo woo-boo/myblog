@@ -6,12 +6,16 @@ Users
 
 {% block content %}
 
- 
-    {% for user in user_list %}
-        <div class="container-flex" style="margin-bottom: 5em;">   
-            {% include "blog/snippets/user.html" %}
+    {% if not user_list %}
+        <div class="container-flex bg-light info_container">
+            <h1 class="text-info">There are no users</h1>
         </div>
-   {% endfor %}
-
+    {% else %}
+        {% for user in user_list %}
+            <div class="container-flex" style="margin-bottom: 5em;">   
+                {% include "blog/snippets/user.html" %}
+            </div>
+        {% endfor %}
+    {% endif %}
 
 {% endblock content %}

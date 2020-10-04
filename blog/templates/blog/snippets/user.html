@@ -1,5 +1,5 @@
 <div class="container-flex bg-light" style="padding: 1em;">
-    <h2>Username: <i>{{ user.username }}</i></h2>
+    <h2>Username: <a href="{% url 'user_detail' user.id %}"><i>{{ user.username }}</i></a></h2>
     <hr>
     <h1>{{ user.first_name }} {{ user.last_name }}</h1>
     <span>Date joined: {{ user.date_joined.date }}</span>

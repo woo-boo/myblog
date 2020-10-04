@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+    Sign Up
+{% endblock title %}
+
+{% block content %}
+    
+    <div class="container-fluid bg-light form_container">
+        <div class="container-flex info_container bg-light">
+            <h1 class="text-primary">Sign up:</h1>
+        </div>
+        <form action="{% url 'sign_up' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Sign up">
+        </form>
+    </div>
+{% endblock content %}

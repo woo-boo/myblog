@@ -7,10 +7,10 @@
 
 {% block content %}
     <div class="container-flex bg-light" style="padding: 1em;">
-        <h2>Username: <i>{{ user.username }}</i></h2>
+        <h2>Username: <i>{{ user_detail.username }}</i></h2>
         <hr>
-        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-        <span>Date joined: {{ user.date_joined.date }}</span>
+        <h1>{{ user_detail.first_name }} {{ user_detail.last_name }}</h1>
+        <span>Date joined: {{ user_detail.date_joined.date }}</span>
     </div>
 
     {% block buttons_header %}

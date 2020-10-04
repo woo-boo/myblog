@@ -6,11 +6,13 @@ News
 {% endblock title %}
 
 {% block content %}
-
-    {% for post in post_list %}
-
-        {% include "blog/snippets/post.html" %}
-
-    {% endfor %}
-
+    {% if post_list %}
+        {% for post in post_list %}
+            {% include "blog/snippets/post.html" %}
+        {% endfor %}
+    {% else %}
+        <div class="container-flex bg-light info_container">
+            <h1 class="text-info">There are no posts</h1>
+        </div>
+    {% endif %}
 {% endblock content %}

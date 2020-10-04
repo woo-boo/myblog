@@ -35,10 +35,20 @@
             <hr>
             <div class="post_footer container-fluid">
                 <div class="row">
-                    <div class="">
+                    <div>
+                        <form action="{% url 'post_detail' post.id %}" method="POST" style="margin-bottom: 1em;">
+                            {% csrf_token %}
+                            <input type="hidden" name="like_post" value="True">
+                            {% if liked %}
+                                <button type="submit" class="btn btn-danger" value="Dislike" id="like_button">Dislike</button>
+                            {% else %}
+                                <button type="submit" class="btn btn-primary" value="Like" id="like_button">Like</button>
+                            {% endif %}
+                        </form>
                         <span class="post_footer_link">
                             Likes: {{ post.like_count }}
-                        </span><span class="post_footer_link">
+                        </span>
+                        <span class="post_footer_link">
                             <a href="#comments">Comments: </a>{{ post.comments.count }}
                         </span>
                         <span class="post_footer_link">
@@ -84,8 +94,6 @@
                 <form action="{% url 'post_detail' post.id %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                    {{ form_delete_comment }}
-                    {{ form_delete_error }}
                     <input type="submit" class="btn btn-danger" value="Delete comment">
                 </form>
             {% endif %}

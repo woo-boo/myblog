@@ -6,11 +6,13 @@ Edit profile
 
 {% block content %}
     <div class="container-flex bg-light info_container">
-        <h1>Edit user profile: {{ user.username }}</h1>
+        <h1>Edit user profile: {{ user_detail.username }}</h1>
     </div>
-    <div class="container-flex">
-        <form>
+    <div class="container-flex bg-light form_container">
+        <form action="{% url 'my_account_edit' %}" method="POST">
             {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-info" value="Save profile information">
         </form>
     </div>
 {% endblock content %}

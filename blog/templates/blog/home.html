@@ -13,30 +13,28 @@ Home
 
     {% if not post_list %}
         <div class="container-flex bg-light info_container">
-            <h1 class="text-info">There are not posts for last 24 hours</h1>
+            <h1 class="text-info">There are no posts for last 24 hours</h1>
         </div>
     {% else %}
-
         <div class="container-flex bg-light home_title">
             <h1 class="text-primary">Popular posts per day: </h1>
         </div>
-
-        {% for post in post_list %}
-            
+        {% for post in post_list %}     
             {% include "blog/snippets/post.html" %}
-
         {% endfor %}
-
     {% endif %}
 
-    <div class="container-flex bg-light home_title">
-        <h1 class="text-primary">New blogs: </h1>
-    </div>
-
-    {% for blog in blog_list %}
-        
-        {% include "blog/snippets/blog.html" %}
-
-    {% endfor %}
+    {% if not blog_list %}
+        <div class="container-flex bg-light info_container">
+            <h1 class="text-info">There are no blogs</h1>
+        </div>
+    {% else %}
+        <div class="container-flex bg-light home_title">
+            <h1 class="text-primary">New blogs: </h1>
+        </div>
+        {% for blog in blog_list %}
+            {% include "blog/snippets/blog.html" %}
+        {% endfor %}
+    {% endif %}
     
 {% endblock content %}
