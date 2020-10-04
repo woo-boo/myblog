@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 
 
 
-class UserProfile(models.Model):
-    user   = models.OneToOneField(User, on_delete=models.CASCADE)
-    image  = models.ImageField(upload_to='media/user/')
+# class UserProfile(models.Model):
+#     user   = models.OneToOneField(User, on_delete=models.CASCADE)
+#     image  = models.ImageField(upload_to='media/user/')
 
-    def __str__(self):
-        return str(self.user.username)
+#     def __str__(self):
+#         return str(self.user.username)
 
 
 class Blog(models.Model):
@@ -45,7 +45,7 @@ class Post(models.Model):
     blog       = models.ForeignKey(Blog, models.CASCADE, related_name="posts")
     user       = models.ForeignKey(User, models.CASCADE, related_name="posts")
     like_count = models.IntegerField("Count of likes", default=0, editable=False)
-    liked_by   = models.ManyToManyField(User, related_name="liked_posts", blank=True)
+    liked_by   = models.ManyToManyField(User, related_name="liked_posts", blank=True, editable=False)
 
     def __str__(self):
         return str(self.title)
@@ -80,19 +80,19 @@ class Comment(models.Model):
         return self.post.get_absolute_url() + '#comment_' + str(self.id)
 
 
-class Image(models.Model):
-    image_field = models.ImageField(upload_to='media/images')
-    post        = models.ManyToManyField(Post, blank=True, related_name="images")
-    comment     = models.ManyToManyField(Comment, blank=True, related_name="images")
+# class Image(models.Model):
+#     image_field = models.ImageField(upload_to='media/images')
+#     post        = models.ManyToManyField(Post, blank=True, related_name="images")
+#     comment     = models.ManyToManyField(Comment, blank=True, related_name="images")
 
-    def __str__(self):
-        return str(self.image_field.name)
+#     def __str__(self):
+#         return str(self.image_field.name)
 
 
-class File(models.Model):
-    file_field = models.FileField(upload_to='media/files')
-    post       = models.ManyToManyField(Post, blank=True, related_name="files")
-    comment    = models.ManyToManyField(Comment, blank=True, related_name="files")
+# class File(models.Model):
+#     file_field = models.FileField(upload_to='media/files')
+#     post       = models.ManyToManyField(Post, blank=True, related_name="files")
+#     comment    = models.ManyToManyField(Comment, blank=True, related_name="files")
 
-    def __str_(self):
-        return str(self.file_field.name)
+#     def __str_(self):
+#         return str(self.file_field.name)
