@@ -36,15 +36,17 @@
             <div class="post_footer container-fluid">
                 <div class="row">
                     <div>
-                        <form action="{% url 'post_detail' post.id %}" method="POST" style="margin-bottom: 1em;">
-                            {% csrf_token %}
-                            <input type="hidden" name="like_post" value="True">
-                            {% if liked %}
-                                <button type="submit" class="btn btn-danger" value="Dislike" id="like_button">Dislike</button>
-                            {% else %}
-                                <button type="submit" class="btn btn-primary" value="Like" id="like_button">Like</button>
-                            {% endif %}
-                        </form>
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'post_detail' post.id %}" method="POST" style="margin-bottom: 1em;">
+                                {% csrf_token %}
+                                <input type="hidden" name="like_post" value="True">
+                                {% if liked %}
+                                    <button type="submit" class="btn btn-danger" value="Dislike" id="like_button">Dislike</button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-primary" value="Like" id="like_button">Like</button>
+                                {% endif %}
+                            </form>
+                        {% endif %}
                         <span class="post_footer_link">
                             Likes: {{ post.like_count }}
                         </span>
