@@ -1,0 +1,22 @@
+FROM python:3.8.5-slim-buster
+
+RUN mkdir -p /home/myblog
+RUN useradd -d /home/myblog -s /bin/bash myblog
+
+ENV HOME=/home/myblog
+ENV APP_HOME=/home/myblog/app
+RUN mkdir ${APP_HOME}
+RUN mkdir ${APP_HOME}/staticfiles
+WORKDIR ${APP_HOME}
+
+COPY ./requirements.txt .
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
+
+COPY blog/ ${APP_HOME}/blog
+COPY myblog/ ${APP_HOME}/myblog
+COPY manage.py ${APP_HOME}
+
+RUN chown -R myblog:myblog ${APP_HOME}
+
+USER myblog

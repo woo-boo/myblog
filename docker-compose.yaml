@@ -1,12 +1,39 @@
-version: "3"
+version: '3'
 
 services:
-  database:
-    image: postgres
-    environment:
-      POSTGRES_USER: #insert username
-      POSTGRES_PASSWORD: #insert password
-      POSTGRES_DATABASE: #insert database name
-    ports: 
-      - "5432:5432"
-    restart: always
+  nginx:
+    image: nginx:alpine
+    volumes:
+        - static_volume:/staticfiles
+        - ./nginx:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile.slim-buster
+    command: gunicorn myblog.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/myblog/app/staticfiles
+    expose:
+      - 8000
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+        - 5432
+    env_file:
+      - ./.env
+
+volumes:
+  postgres_data:
+  static_volume:
